@@ -43,10 +43,22 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
 
+      ###-The commented section is less professional,
+      ### but it is more straightforward and easier to understand for beginners.    
+      # - name: Build and push
+      #   id: build
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     push: true
+      #     tags: ghcr.io/${{ github.repository }}:1.0
+
+      ###This is more professional, it appends the SHA as a tag to the image      - name: Build and push
       - name: Build and push
         id: build
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ghcr.io/${{ github.repository }}:1.0
-          
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
+            ghcr.io/${{ github.repository }}:latest 
+            
